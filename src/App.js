@@ -64,6 +64,50 @@ const handleClear = () => {
   setOutput("")
   setCalculatorData("")
 }
+
+
+const handleNumbers = (value) => {
+  if(!calculatorData.length){
+    setInput(`${value}`);
+    setCalculatorData(`${value}`);
+  } else {
+    if(value === 0 && (calculatorData === "0" || input === "0")){
+      setCalculatorData(`${value}`)
+    } else {
+      const lastChat = calculatorData.charAt(calculatorData.length - 1);
+      const isLastChatOperator = lastChat === "*" || operators.includes(lastChat);
+
+
+      setInput(isLastChatOperator ? `${value}`: `${input}${value}`);
+      setCalculatorData(`${calculatorData}${value}`)
+    }
+  }
+}
+
+
+const dotOperator = () => {
+  const lastChat = calculatorData.charAt(calculatorData.length - 1);
+  if(!calculatorData.length){
+    setInput("0.");
+    setCalculatorData("0.")
+  } else {
+    if(lastChat === "*" || operators.includes(lastChat)){
+      setInput("0.")
+      setCalculatorData(`${calculatorData} 0.`)
+    } else{
+      setInput(
+        lastChat === "." || input.includes(".")? `${input}` : `${input}.`
+      );
+
+      const formatedValue = 
+        lastChat === "." || input.includes(".")
+          ? `${calculatorData}`
+          : `${calculatorData}.`;
+      setCalculatorData(formatedValue);
+    }
+    
+  }
+}
   
 const handleInput =()=>{
 
