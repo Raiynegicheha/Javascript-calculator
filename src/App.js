@@ -168,6 +168,16 @@ const handleInput =(value)=>{
       break;
   }
 }
+
+const handleOutput =()=>{
+  setOutput(calculatorData)
+}
+
+React.useEffect(()=>{
+  handleOutput()
+
+}, [calculatorData])
+
   
 
   return (
