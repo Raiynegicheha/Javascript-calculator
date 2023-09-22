@@ -108,10 +108,68 @@ const dotOperator = () => {
     
   }
 }
-  
-const handleInput =()=>{
 
+
+const handleOperators = (value) => {
+   if(calculatorData.length){
+    setInput(`${value}`);
+    
+    const beforeLastChat = calculatorData.charAt(calculatorData.length - 2);
+
+    const beforeLastChatIsOperator = 
+     operators.includes(beforeLastChat) || beforeLastChat === "*";
+
+    const lastChat = calculatorData.charAt(calculatorData.length - 1);
+
+    const lastChatIsOperator = operators.includes(lastChat) || lastChat === "*";
+
+
+    const validOp = value === "x" ? "*" : value;
+    if(
+      (lastChatIsOperator && value !== "-") ||
+      beforeLastChatIsOperator && lastChatIsOperator
+    ) {
+      if(beforeLastChatIsOperator){
+        const updateValue = `${calculatorData.substring(0, calculatorData.length -2)}${value}`;
+        setCalculatorData(updateValue);
+      } else {
+        setCalculatorData(`${calculatorData.substring(0, calculatorData.length - 1)}${validOp}`);
+      }
+     } else {
+      setCalculatorData(`${calculatorData}${validOp}`);
+     }
+    }
+ 
+};
+
+
+const handleInput =(value)=>{
+  const number = numbers.find((num)=> num === value);
+  const operator = operators.find((op)=> op === value);
+
+
+  switch (value){
+    case "=":
+      handleSubmit();
+      break;
+    case "AC":
+      handleClear();
+      break;
+    case number:
+      handleNumbers(value);
+      break;
+    case ".":
+      dotOperator();
+      break;
+    case operator:
+      handleOperators(value);
+      break;
+    default:
+      break;
+  }
 }
+  
+
   return (
     <div className="container">
       <div className='calculator'>
