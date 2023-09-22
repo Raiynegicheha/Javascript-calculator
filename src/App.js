@@ -51,6 +51,20 @@ function App() {
 const [input, setInput] = React.useState("0")
 const [output, setOutput] = React.useState("")
 
+const handleSubmit = () => {
+  const total = eval(calculatorData)
+  setInput(`${total}`)
+  setOutput(`${total}`)
+  setCalculatorData(`${total}`)
+}
+
+
+const handleClear = () => {
+  setInput("0")
+  setOutput("")
+  setCalculatorData("")
+}
+  
 const handleInput =()=>{
 
 }
